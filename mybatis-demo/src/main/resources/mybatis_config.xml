@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--下划线转驼峰命名法-->
+    <settings>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+    </settings>
+    <!--所有环境
+       environments中的default属性用来指定当前环境，有development（默认）和work两种模式
+       environment-id是每种配置的环境ID,有development（默认）和work两种模式
+    -->
+    <environments default="development">
+        <!--单个环境-->
+        <environment id="development">
+            <!--事务管理器
+                MyBatis 支持两种类型的事务管理器：JDBC 和 MANAGED(托管)；
+                JDBC：应用程序负责管理数据库连接的生命周期；
+                MANAGED：由应用服务器负责管理数据库连接的生命周期；(Tomcat没有此功能、一般商业服务器才有此功能，如JBOSS,WebLogic)
+            -->
+            <transactionManager type="JDBC"/>
+            <!--
+                用来配置数据源；类型有：UNPOOLED，POOLED，JNDI；
+                UNPOOLED，没有连接池，每次数据库操作，MyBatis 都会创建一个新的连接，用完后，关闭；适合小并发项目；
+                POOLED，用上了连接池；
+                JNDI，使用应用服务器配置 JNDI 数据源获取数据库连接；-->
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
+                <property name="url" value="jdbc:mysql://localhost:3306/Mybatis?serverTimezone=Asia/Shanghai&amp;useUnicode=true&amp;characterEncoding=UTF-8"/>
+                <property name="username" value="root"/>
+                <property name="password" value="root"/>
+            </dataSource>
+        </environment>
+    </environments>
+
+
+    <mappers>
+        <mapper class="com.putian.mybatis.mapper.EmployeeMapper"/>
+    </mappers>
+</configuration>
